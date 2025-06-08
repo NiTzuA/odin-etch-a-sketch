@@ -13,6 +13,10 @@ let createGrids = (gridDimensions) => {
         for (let j = 0; j < gridDimensions; j++) {
             const divCol = document.createElement("div");
             divCol.setAttribute("style", "padding: 20px; outline: 2px solid black;");
+            divCol.dataset.r = Math.random() * 255;
+            divCol.dataset.g = Math.random() * 255;
+            divCol.dataset.b = Math.random() * 255;
+            divCol.dataset.alpha = 0.0; // Initialize alpha value
             divRow.appendChild(divCol);    
         }    
     }
@@ -20,10 +24,18 @@ let createGrids = (gridDimensions) => {
     const gridBoxes = document.querySelectorAll('.grid-box');
     gridBoxes.forEach(box => {
         box.addEventListener('mouseover', (e) => {
-            e.target.style.backgroundColor = 'black';
+            alpha = parseFloat(e.target.dataset.alpha) || 0.0;
+            alpha = Math.min(alpha + 0.1, 1.0);
+            e.target.dataset.alpha = alpha;
+            r = parseFloat(e.target.dataset.r);
+            g = parseFloat(e.target.dataset.g);
+            b = parseFloat(e.target.dataset.b);
+            e.target.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${alpha})`;
         });
     });
 }
+
+createGrids(16);
 
 const gridSizeButton = document.querySelector('#set-grid-size');
 gridSizeButton.addEventListener('click', () => {
