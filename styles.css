@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#set-grid-size {
+    padding: 20px;
+    margin: 20px;
+}
+
+.content {
+}
